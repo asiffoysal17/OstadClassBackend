@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import connectDB from "./configs/db.config.js";
+import userRoutes from "./routes/user.routes.js";
 
 dotenv.config();
 
@@ -22,6 +23,8 @@ app.get("/", (req, res) => {
 
 /* DB */
 connectDB();
+
+app.use("api/v1", userRoutes);
 
 /* Server */
 app.listen(PORT, () => {
