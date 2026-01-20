@@ -2,8 +2,19 @@ import Blog from "../models/blog.model.js";
 
 const createBlog = async (req, res) => {
   try {
-    const blogData = req.body;
-    const result = await Blog.create(blogData);
+    const { title, category, short_description, description } = JSON.parse(
+      req.body.data,
+    );
+
+    const img = req.file.path;
+
+    const result = await Blog.create({
+      title,
+      img,
+      category,
+      short_description,
+      description,
+    });
 
     res.status(201).json({
       success: true,
@@ -64,7 +75,7 @@ const updateBlog = async (req, res) => {
         description,
         short_description,
       },
-      { new: true }
+      { new: true },
     );
     res.status(200).json({
       success: true,
