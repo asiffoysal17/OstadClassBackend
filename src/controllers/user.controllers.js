@@ -65,6 +65,22 @@ const login = async (req, res) => {
   }
 };
 
+const userLogout = async (req, res) => {
+  try {
+    res.clearCookie("user-token");
+    res.status(200).json({
+      success: true,
+      message: "User logged out successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      message: "Something went wrong",
+      error: error.toString(),
+    });
+  }
+};
+
 const userController = {
   register,
   login,
